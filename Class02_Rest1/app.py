@@ -15,7 +15,7 @@ def post_produto( id ):
   data = request.get_json()
   item = { "id":id, "nome":data["nome"], "preco":data["preco"] }
   lista.append( item )
-  return jsonify( item )
+  return jsonify( item ),201
 
 
 @app.route( '/produto/<int:id>', methods = ['PUT'] )
@@ -27,7 +27,7 @@ def put_produto( id ):
     if id in i.values():
       i.update( { "nome":data["nome"], "preco":data["preco"] } )
 
-  return jsonify( item )
+  return jsonify( item ),201
 
 
 @app.route( '/produto/<int:id>', methods = ['GET'] )
@@ -41,8 +41,9 @@ def get_produto( id ):
        nome = i.get("nome")
        preco = i.get("preco")
        item = { "id": id, "nome": nome, "preco": preco }
+       return jsonify( item )
 
-  return jsonify( item )
+  return jsonify({'id':'none'}),404
 
 
 @app.route( '/produto/<int:id>', methods = ['DELETE'] )
@@ -51,7 +52,7 @@ def delete_produto( id ):
     if id in i.values():
       lista.remove( i )
 
-  return "Produto deletado"
+  return "Produto deletado",204
 
 if __name__ == '__main__':
   app.run( debug = True )
