@@ -16,6 +16,8 @@ api.add_resource( Produto, '/produto/<int:id_entrada>', '/produto' )
 def create_tables():
   db.create_all()
 
+db.init_app(app)
+
 if __name__ == "__main__":
-  db.init_app(app)
+  # db.init_app(app)
   app.run(debug=True)
